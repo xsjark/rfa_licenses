@@ -4,6 +4,7 @@ import { app } from "../../../firebase"
 import { Box } from '@mui/material';
 import NavBar from './NavBar';
 
+
 function Home() {
     const [loggedIn, setLoggedIn] = useState(false)
 
