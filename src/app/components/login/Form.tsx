@@ -7,24 +7,19 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut, connectAuthEmulator, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
+import { app } from "../../../firebase"
 import { useEffect, useState } from 'react';
 
-
-
-const firebaseConfig = {
-    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
-    appId: process.env.REACT_APP_FIREBASE_APP_ID 
-  }
-
-const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+const appleProvider = new OAuthProvider('apple.com');
+
+// eslint-disable-next-line no-restricted-globals
+if (location.hostname === 'localhost') {
+    connectAuthEmulator(auth, 'http://localhost:9099/');
+    console.log("connected to emulator")
+}
 
 function Form() {
     const [email, setEmail] = useState('');
@@ -33,28 +28,91 @@ function Form() {
 
     useEffect(() => {
         const listener = auth.onAuthStateChanged((authUser) => {
-          if (authUser) {
-            localStorage.setItem('authUser', JSON.stringify(authUser));
-            setLoggedIn(true);
-          } else {
-            localStorage.removeItem('authUser');
-            setLoggedIn(false);
-          }
+            if (authUser) {
+                localStorage.setItem('authUser', JSON.stringify(authUser));
+                setLoggedIn(true);
+            } else {
+                localStorage.removeItem('authUser');
+                setLoggedIn(false);
+            }
         });
-    
-        return () => listener?.();
-      }, []);
 
-      const handleLogin = async () => {
+        return () => listener?.();
+    }, []);
+
+    const handleLogin = async () => {
         signInWithEmailAndPassword(auth, email, password)
-          .then((response) => {
-            alert("signed in")
-          })
-      .catch(err => alert(err))
+            .then((response) => {
+                alert("signed in")
+            })
+            .catch(err => alert(err))
+    };
+
+    const handleGoogleLogin = () => {
+        signInWithPopup(auth, googleProvider)
+            .then((result: any) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential?.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                alert("Logged in with Google successfully")
+                // ...
+            }).catch((error: any) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.customData.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+                // ...
+                alert("Error logging in with Google")
+            });
+    }
+
+    const handleAppleLogin = () => {
+        signInWithPopup(auth, appleProvider)
+            .then((result) => {
+                // The signed-in user info.
+                const user = result.user;
+
+                // Apple credential
+                const credential = OAuthProvider.credentialFromResult(result);
+                const accessToken = credential?.accessToken;
+                const idToken = credential?.idToken;
+
+                // ...
+                alert("Logged in with Apple successfully")
+
+            })
+            .catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.customData.email;
+                // The credential that was used.
+                const credential = OAuthProvider.credentialFromError(error);
+
+                // ...
+                alert("Error logging in with Apple")
+
+            });
+    }
+
+    const handleLogOut = () => {
+        signOut(auth).then(() => {
+            alert("Successfully logged out")
+          }).catch((error) => {
+            alert("Error logging out")
+          });
     }
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1}}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+            {loggedIn ? "Logged in" : "Logged out"}
+                <Button variant="outlined" onClick={() => handleLogOut()} >Log out</Button>
             <Grid container sx={{ display: 'flex' }}>
                 <Grid item xs={6} >
                     <Typography variant="subtitle1" align="left">Sign in</Typography>
@@ -66,11 +124,11 @@ function Form() {
             </Grid>
 
             <Grid container sx={{ display: 'flex' }}>
-                <Button variant="outlined" fullWidth>Continue with Google</Button>
+                <Button variant="outlined" onClick={() => handleGoogleLogin()} fullWidth>Continue with Google</Button>
             </Grid>
 
             <Grid container sx={{ display: 'flex' }}>
-                <Button variant="outlined" fullWidth>Sign in with Apple</Button>
+                <Button variant="outlined" onClick={() => handleAppleLogin()} fullWidth>Sign in with Apple</Button>
             </Grid>
 
             <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -85,8 +143,8 @@ function Form() {
                 <TextField id="outlined-name" label="Password" onChange={(e) => setPassword(e.target.value)} value={password} fullWidth />
             </Grid>
 
-            <Grid container sx={{  display: 'flex', justifyContent: 'center' }}>
-                
+            <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
+
                 <Grid item xs={6} >
                     <FormGroup>
                         <FormControlLabel control={<Checkbox defaultChecked />} label="Remember me" />
