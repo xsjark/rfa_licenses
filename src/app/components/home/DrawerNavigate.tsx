@@ -29,7 +29,7 @@ export default function DrawerNavigate() {
             url: "/"
         },
         {
-            label: "Soporte tecnico",
+            label: "Soporte Técnico",
             url: "/"
         },
         {
@@ -37,7 +37,7 @@ export default function DrawerNavigate() {
             url: "/"
         },
         {
-            label: "Facturacion",
+            label: "Facturación",
             url: "/"
         }
     ]
