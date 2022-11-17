@@ -3,11 +3,11 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut, connectAuthEmulator, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
+// import Typography from '@mui/material/Typography';
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, connectAuthEmulator, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
 import { app } from "../../../firebase"
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
