@@ -25,37 +25,7 @@ export default function NavBar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" color="transparent">
                 <Toolbar>
-
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                        id="basic-button"
-                        aria-controls={open ? 'basic-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                        onClick={handleClick}
-                    >
-                        <MenuIcon />
-                    </IconButton>
                     <DrawerNavigate />
-{/* 
-                    <Menu
-                        id="basic-menu"
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                        }}
-                    >
-                        <MenuItem onClick={handleClose}>Mis Licencias</MenuItem>
-                        <MenuItem onClick={handleClose}>Comprar suministros</MenuItem>
-                        <MenuItem onClick={handleClose}>Soporte tecnico</MenuItem>
-                        <MenuItem onClick={handleClose}>Solicitud de desarollo</MenuItem>
-                    </Menu> */}
                 </Toolbar>
             </AppBar>
         </Box>
