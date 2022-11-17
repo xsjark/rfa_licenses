@@ -1,40 +1,28 @@
-import { useEffect, useState } from 'react';
-import { getAuth } from 'firebase/auth';
-import { app } from "../../../firebase"
+import { useContext, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import NavBar from './NavBar';
 import LoginPrompt from '../loginPrompt/LoginPrompt';
+import { UserContext } from '../../../App';
 
 
 function Home() {
-    const [loggedIn, setLoggedIn] = useState(false)
+    const role = useContext(UserContext);
 
-    const auth = getAuth(app);
-    
-    useEffect(() => {
-        const listener = auth.onAuthStateChanged((authUser) => {
-            if (authUser) {
-                localStorage.setItem('authUser', JSON.stringify(authUser));
-                setLoggedIn(true);
-            } else {
-                localStorage.removeItem('authUser');
-                setLoggedIn(false);
-            }
-        });
-
-        return () => listener?.();
-    }, []);
-    return(
+    return (
         <Box>
-        {
-            loggedIn ? (
-                <NavBar />
-            ) : (
-                <LoginPrompt />
-            )
-        }
+            {(() => {
+                switch (role) {
+                    case 'user':
+                        return <NavBar />
+                    case 'distributor':
+                        return <NavBar />
+                    default:
+                        return <LoginPrompt />
+                }
+            })()}
+            {role}
         </Box>
-        
+
     )
 }
 

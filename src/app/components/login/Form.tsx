@@ -9,8 +9,9 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, connectAuthEmulator, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
 import { app } from "../../../firebase"
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { UserContext } from '../../../App';
 
 
 const auth = getAuth(app);
@@ -27,30 +28,9 @@ if (location.hostname === 'localhost') {
 function Form() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState<any>();
-    const [loggedIn, setLoggedIn] = useState(false)
-
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const listener = auth.onAuthStateChanged(async (authUser) => {
-            if (authUser) {
-                try {
-                    const result = await authUser.getIdTokenResult();
-                    console.log(result.claims.role)
-                    setRole(result.claims.role)
-                } catch {
-                    alert("error")
-                }
-                setLoggedIn(true);
-            } else {
-
-                setLoggedIn(false);
-            }
-        });
-
-        return () => listener?.();
-    }, []);
+ 
 
     const handleLogin = async () => {
         signInWithEmailAndPassword(auth, email, password)
@@ -126,7 +106,6 @@ function Form() {
                 </Grid>
             </Grid> */}
 
-            {role}
 
             <Grid container sx={{ maxWidth: "522px", margin: "auto" }}>
                 <Button variant="outlined" onClick={() => handleGoogleLogin()} fullWidth>Continue with Google</Button>
