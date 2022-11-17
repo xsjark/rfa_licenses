@@ -27,17 +27,24 @@ if (location.hostname === 'localhost') {
 function Form() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [role, setRole] = useState<any>();
     const [loggedIn, setLoggedIn] = useState(false)
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        const listener = auth.onAuthStateChanged((authUser) => {
+        const listener = auth.onAuthStateChanged(async (authUser) => {
             if (authUser) {
-                localStorage.setItem('authUser', JSON.stringify(authUser));
+                try {
+                    const result = await authUser.getIdTokenResult();
+                    console.log(result.claims.role)
+                    setRole(result.claims.role)
+                } catch {
+                    alert("error")
+                }
                 setLoggedIn(true);
             } else {
-                localStorage.removeItem('authUser');
+
                 setLoggedIn(false);
             }
         });
@@ -118,6 +125,8 @@ function Form() {
                     <Link href="#" underline="none"> &nbsp; create an account</Link>
                 </Grid>
             </Grid> */}
+
+            {role}
 
             <Grid container sx={{ maxWidth: "522px", margin: "auto" }}>
                 <Button variant="outlined" onClick={() => handleGoogleLogin()} fullWidth>Continue with Google</Button>

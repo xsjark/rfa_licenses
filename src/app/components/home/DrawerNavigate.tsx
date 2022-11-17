@@ -69,8 +69,8 @@ export default function DrawerNavigate() {
                 }}
             >
                 {
-                    list.map((item) => {
-                        return (<Box>
+                    list.map((item, i) => {
+                        return (<Box key={i}>
                             <List>
                                 <ListItem>
                                     <ListItemButton>
