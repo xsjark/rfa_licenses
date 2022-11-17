@@ -9,23 +9,31 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import DrawerNavigate from './DrawerNavigate';
+import { connectAuthEmulator, getAuth, signOut} from 'firebase/auth';
+import { app } from "../../../firebase"
 
+const auth = getAuth(app);
 
+// eslint-disable-next-line no-restricted-globals
+if (location.hostname === 'localhost') {
+    connectAuthEmulator(auth, 'http://localhost:9099/');
+    console.log("connected to emulator")
+}
 export default function NavBar() {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const handleLogOut = () => {
+        signOut(auth).then(() => {
+            alert("Successfully logged out")
+          }).catch((error) => {
+            alert("Error logging out")
+          });
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" color="transparent">
-                <Toolbar>
+                <Toolbar sx={{display: "flex", justifyContent: "space-between"}} >
                     <DrawerNavigate />
+                    <Button color="inherit" onClick={() => handleLogOut()} sx={{right: 0}}>Logout</Button>
                 </Toolbar>
             </AppBar>
         </Box>

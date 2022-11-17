@@ -77,7 +77,7 @@ export default function DrawerNavigate() {
                             <List>
                                 <ListItem>
                                     <ListItemButton>
-                                        {item.label}
+                                    <ListItemText primary={item.label} />
                                     </ListItemButton>
                                 </ListItem>
                             </List>

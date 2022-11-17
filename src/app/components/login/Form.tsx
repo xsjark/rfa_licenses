@@ -10,6 +10,8 @@ import Typography from '@mui/material/Typography';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut, connectAuthEmulator, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
 import { app } from "../../../firebase"
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
@@ -25,6 +27,8 @@ function Form() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loggedIn, setLoggedIn] = useState(false)
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const listener = auth.onAuthStateChanged((authUser) => {
@@ -43,7 +47,7 @@ function Form() {
     const handleLogin = async () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((response) => {
-                alert("signed in")
+                navigate("/home")
             })
             .catch(err => alert(err))
     };
@@ -56,7 +60,7 @@ function Form() {
                 // const token = credential?.accessToken;
                 // The signed-in user info.
                 // const user = result.user;
-                alert("Logged in with Google successfully")
+                navigate("/home")
                 // ...
             }).catch((error: any) => {
                 // Handle Errors here.
@@ -83,7 +87,7 @@ function Form() {
                 // const idToken = credential?.idToken;
 
                 // ...
-                alert("Logged in with Apple successfully")
+                navigate("/home")
 
             })
             .catch((error) => {
@@ -101,20 +105,12 @@ function Form() {
             });
     }
 
-    const handleLogOut = () => {
-        signOut(auth).then(() => {
-            alert("Successfully logged out")
-          }).catch((error) => {
-            alert("Error logging out")
-          });
-    }
+    
 
     return (
         
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            {/* {loggedIn ? "Logged in" : "Logged out"}
-                <Button variant="outlined" onClick={() => handleLogOut()} >Log out</Button> */}
-            <Grid container sx={{ display: 'flex' }}>
+            {/* <Grid container sx={{ display: 'flex' }}>
                 <Grid item xs={6} >
                     <Typography variant="subtitle1" align="left">Sign in</Typography>
                 </Grid>
@@ -122,7 +118,7 @@ function Form() {
                     <Typography variant="subtitle2" align="right" display="inline">or </Typography>
                     <Link href="#" underline="none"> &nbsp; create an account</Link>
                 </Grid>
-            </Grid>
+            </Grid> */}
 
             <Grid container sx={{ display: 'flex' }}>
                 <Button variant="outlined" onClick={() => handleGoogleLogin()} fullWidth>Continue with Google</Button>

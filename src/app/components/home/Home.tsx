@@ -3,6 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { app } from "../../../firebase"
 import { Box } from '@mui/material';
 import NavBar from './NavBar';
+import LoginPrompt from '../loginPrompt/LoginPrompt';
 
 
 function Home() {
@@ -25,8 +26,15 @@ function Home() {
     }, []);
     return(
         <Box>
-            <NavBar />
+        {
+            loggedIn ? (
+                <NavBar />
+            ) : (
+                <LoginPrompt />
+            )
+        }
         </Box>
+        
     )
 }
 
