@@ -6,8 +6,8 @@ import {
 import Login from './app/components/login/Login';
 import Home from './app/components/home/Home';
 import Container from '@mui/material/Container';
-import { createContext, useEffect, useState } from 'react';
-import { getAuth } from 'firebase/auth';
+import { createContext, useEffect, useState, useContext, useMemo } from 'react';
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, connectAuthEmulator, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
 import { app } from "./firebase"
 
 export const UserContext = createContext('');
@@ -29,6 +29,8 @@ function App() {
             } catch {
                 alert("error")
             }
+        } else {
+          setRole("")
         }
     });
 
