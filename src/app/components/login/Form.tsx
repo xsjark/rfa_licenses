@@ -52,20 +52,20 @@ function Form() {
         signInWithPopup(auth, googleProvider)
             .then((result: any) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential?.accessToken;
+                // const credential = GoogleAuthProvider.credentialFromResult(result);
+                // const token = credential?.accessToken;
                 // The signed-in user info.
-                const user = result.user;
+                // const user = result.user;
                 alert("Logged in with Google successfully")
                 // ...
             }).catch((error: any) => {
                 // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
                 // The email of the user's account used.
-                const email = error.customData.email;
+                // const email = error.customData.email;
                 // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
+                // const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
                 alert("Error logging in with Google")
             });
@@ -78,9 +78,9 @@ function Form() {
                 const user = result.user;
 
                 // Apple credential
-                const credential = OAuthProvider.credentialFromResult(result);
-                const accessToken = credential?.accessToken;
-                const idToken = credential?.idToken;
+                // const credential = OAuthProvider.credentialFromResult(result);
+                // const accessToken = credential?.accessToken;
+                // const idToken = credential?.idToken;
 
                 // ...
                 alert("Logged in with Apple successfully")
@@ -88,12 +88,12 @@ function Form() {
             })
             .catch((error) => {
                 // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
                 // The email of the user's account used.
-                const email = error.customData.email;
+                // const email = error.customData.email;
                 // The credential that was used.
-                const credential = OAuthProvider.credentialFromError(error);
+                // const credential = OAuthProvider.credentialFromError(error);
 
                 // ...
                 alert("Error logging in with Apple")
@@ -110,9 +110,10 @@ function Form() {
     }
 
     return (
+        
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            {loggedIn ? "Logged in" : "Logged out"}
-                <Button variant="outlined" onClick={() => handleLogOut()} >Log out</Button>
+            {/* {loggedIn ? "Logged in" : "Logged out"}
+                <Button variant="outlined" onClick={() => handleLogOut()} >Log out</Button> */}
             <Grid container sx={{ display: 'flex' }}>
                 <Grid item xs={6} >
                     <Typography variant="subtitle1" align="left">Sign in</Typography>

@@ -13,13 +13,11 @@ import Container from '@mui/material/Container';
 function App() {
   return (
     <div className="App">
-      <Container maxWidth="lg">
-        <Box sx={{height: '100vh' , display: 'flex', justifyContent: "center"} }>
+      <Container maxWidth="xl" sx={{minHeight: "100vh"}} disableGutters>
           <Routes>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/home" element={<Home />}></Route>
           </Routes>
-        </Box>
       </Container>
 
       {/* <User /> */}

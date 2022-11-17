@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { app } from "../../../firebase"
 import { Box } from '@mui/material';
+import NavBar from './NavBar';
 
 function Home() {
     const [loggedIn, setLoggedIn] = useState(false)
@@ -22,8 +23,8 @@ function Home() {
         return () => listener?.();
     }, []);
     return(
-        <Box sx={{border: 1}}>
-            {loggedIn ? "Logged in" : "Logged out"}
+        <Box>
+            <NavBar />
         </Box>
     )
 }
