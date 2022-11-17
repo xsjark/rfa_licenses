@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <Container maxWidth="lg">
-        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }}>
+        <Box sx={{height: '100vh' , display: 'flex', justifyContent: "center"} }>
           <Routes>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/home" element={<Home />}></Route>
