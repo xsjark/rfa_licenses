@@ -6,10 +6,10 @@ import Logo from './Logo';
 function Login() {
     return (
             <Grid container sx={{ display: 'flex', height: "100vh"}} alignItems="center" justifyContent="center">
-                <Grid item xs={12} md={6} px={10} >
+                <Grid item xs={12} md={6} px={{xs: 3, md: 10}} >
                     <Logo />
                 </Grid>
-                <Grid item xs={12} md={6} px={10}>
+                <Grid item xs={12} md={6} px={{xs: 3, md: 10}} >
                     <Form />
                 </Grid>
             </Grid>

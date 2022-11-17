@@ -143,7 +143,7 @@ function Form() {
 
                 <Grid item xs={6} >
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox defaultChecked />} label="Remember me" />
+                        <FormControlLabel control={<Checkbox defaultChecked />} label="Recordarme" />
                     </FormGroup>
                 </Grid>
                 <Grid item xs={6} >
