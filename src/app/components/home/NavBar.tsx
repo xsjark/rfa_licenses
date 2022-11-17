@@ -27,7 +27,7 @@ export default function NavBar() {
             <AppBar position="static" color="transparent">
                 <Toolbar sx={{display: "flex", justifyContent: "space-between"}} >
                     <DrawerNavigate />
-                    <Button color="inherit" onClick={() => handleLogOut()} sx={{right: 0}}>Logout</Button>
+                    <Button color="inherit" onClick={() => handleLogOut()} sx={{right: 0}}>Salir</Button>
                 </Toolbar>
             </AppBar>
         </Box>

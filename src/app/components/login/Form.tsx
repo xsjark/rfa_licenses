@@ -6,7 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 // import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-// import Typography from '@mui/material/Typography';
+import Typography from '@mui/material/Typography';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, connectAuthEmulator, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
 import { app } from "../../../firebase"
 import { useEffect, useState } from 'react';
@@ -22,6 +22,7 @@ if (location.hostname === 'localhost') {
     connectAuthEmulator(auth, 'http://localhost:9099/');
     console.log("connected to emulator")
 }
+
 
 function Form() {
     const [email, setEmail] = useState('');
@@ -105,11 +106,9 @@ function Form() {
             });
     }
 
-    
-
     return (
         
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1}}>
             {/* <Grid container sx={{ display: 'flex' }}>
                 <Grid item xs={6} >
                     <Typography variant="subtitle1" align="left">Sign in</Typography>
@@ -120,27 +119,27 @@ function Form() {
                 </Grid>
             </Grid> */}
 
-            <Grid container sx={{ display: 'flex' }}>
+            <Grid container sx={{ maxWidth: "522px", margin: "auto" }}>
                 <Button variant="outlined" onClick={() => handleGoogleLogin()} fullWidth>Continue with Google</Button>
             </Grid>
 
-            <Grid container sx={{ display: 'flex' }}>
+            <Grid container sx={{ maxWidth: "522px", margin: "auto" }}>
                 <Button variant="outlined" onClick={() => handleAppleLogin()} fullWidth>Sign in with Apple</Button>
             </Grid>
 
-            <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
-                or
+            <Grid container sx={{ maxWidth: "522px", margin: "auto" }}>
+                <Typography variant="body1" align="center" sx={{width: "100%"}}>or </Typography>
             </Grid>
 
-            <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
-                <TextField id="outlined-name" label="Email" onChange={(e) => setEmail(e.target.value)} value={email} fullWidth />
+            <Grid container sx={{ maxWidth: "522px", margin: "auto"}}>
+                <TextField id="outlined-name" label="Email" onChange={(e) => setEmail(e.target.value)} value={email}  fullWidth/>
             </Grid>
 
-            <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid container sx={{ maxWidth: "522px", margin: "auto"}}>
                 <TextField id="outlined-name" label="Password" onChange={(e) => setPassword(e.target.value)} value={password} fullWidth />
             </Grid>
 
-            <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid container sx={{maxWidth: "522px", margin: "auto" }}>
 
                 <Grid item xs={6} >
                     <FormGroup>
@@ -148,7 +147,7 @@ function Form() {
                     </FormGroup>
                 </Grid>
                 <Grid item xs={6} >
-                    <Button variant="outlined" onClick={() => handleLogin()} fullWidth>Sign in</Button>
+                    <Button variant="outlined" onClick={() => handleLogin()} fullWidth>Entrar</Button>
                 </Grid>
             </Grid>
 
